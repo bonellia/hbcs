@@ -40,20 +40,20 @@ namespace Assignment
                         string productCode = parameters[0];
                         decimal price = decimal.Parse(parameters[1]);
                         int stock = Int32.Parse(parameters[2]);
-                        myStore.CreateProduct(productCode, price, stock);
+                        Console.WriteLine(myStore.CreateProduct(productCode, price, stock));
                         break;
                     }
                     case ("get_product_info"):
                     {
                         string productCode = parameters[0];
-                        myStore.GetProductInfo(productCode);
+                        Console.WriteLine(myStore.GetProductInfo(productCode));
                         break;
                     }
                     case ("create_order"):
                     {
                         string productCode = parameters[0];
                         int quantity = Int32.Parse(parameters[1]);
-                        myStore.CreateOrder(productCode, quantity);
+                        Console.WriteLine(myStore.CreateOrder(productCode, quantity));
                         break;
                     }
                     case ("create_campaign"):
@@ -63,19 +63,19 @@ namespace Assignment
                         int duration = Int32.Parse(parameters[2]);
                         int priceManipulationLimit = Int32.Parse(parameters[3]);
                         int targetSalesCount = Int32.Parse(parameters[4]);
-                        myStore.CreateCampaign(name, productCode, duration, priceManipulationLimit, targetSalesCount);
+                        Console.WriteLine(myStore.CreateCampaign(name, productCode, duration, priceManipulationLimit, targetSalesCount));
                         break;
                     }
                     case ("get_campaign_info"):
                     {
                         string name = parameters[0];
-                        myStore.GetCampaignInfo(name);
+                        Console.WriteLine(myStore.GetCampaignInfo(name));
                         break;
                     }
                     case ("increase_time"):
                     {
                         int hour = Int32.Parse(parameters[0]);
-                        myStore.IncreaseTime(hour);
+                        Console.WriteLine(myStore.IncreaseTime(hour));
                         break;
                     }
                     default:
