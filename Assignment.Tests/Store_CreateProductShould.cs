@@ -10,15 +10,17 @@ namespace Assignment.Tests
         {
 
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
         [Fact]
-        public void CreateProduct_ValidInput_ReturnSuccessMessage()
+        public void CreateProduct_NonExistentProductInput_ReturnSuccessMessage()
         {
-        //Given
+            var testStore = new Store();
 
-        //When
-        
-        //Then
+            string actualMessage = testStore.CreateProduct("P1", 100, 1000);
+
+            Assert.Equal("Product created; code P1, price 100, stock 1000", actualMessage);            
         }
     }
 }
