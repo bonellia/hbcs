@@ -179,9 +179,10 @@ namespace Assignment
         {
             try
             {
-                Campaign theCampaign = this.campaigns.GetValueOrDefault(name);
+                Campaign theCampaign = this.campaigns.Values.FirstOrDefault(campaign => campaign.name == name);
                 string campaignStatus = theCampaign.isActive ? "Active" : "Ended";
-                decimal averageItemPrice = theCampaign.turnover / theCampaign.totalSales;
+                string averageItemPrice = theCampaign.totalSales == 0 ? "-" : $"{theCampaign.turnover / theCampaign.totalSales}";
+                
                 return
                         $@"Campaign {theCampaign.name} info; 
                         Status {campaignStatus}, 
@@ -208,11 +209,11 @@ namespace Assignment
         /// </list>
         /// </summary>
         /// <param name="time"></param>
-        public void IncreaseTime(int time)
+        public string IncreaseTime(int time)
         {
             TimeSpan timeToAdd = new TimeSpan(time, 0, 0);
             this.time = this.time.Add(timeToAdd);
-            Console.WriteLine($"Time is { this.time.ToString("HH:mm") }");
+            return $"Time is { this.time.ToString("HH:mm") }";
         }
     }
 }
