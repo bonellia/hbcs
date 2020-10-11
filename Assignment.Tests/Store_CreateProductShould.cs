@@ -17,10 +17,10 @@ namespace Assignment.Tests
             var testStore = new Store();
 
             // Act using the subject method:
-            string actualMessage = testStore.CreateProduct("P1", 100, 1000);
+            string createProductResponse = testStore.CreateProduct("P1", 100, 1000);
 
             // Assert the expected results.
-            Assert.Equal("Product created; code P1, price 100, stock 1000", actualMessage);            
+            Assert.Equal("Product created; code P1, price 100, stock 1000", createProductResponse);            
         }
         [Fact]
         public void CreateProduct_ExistingProductInput_ReturnFailMessage()
