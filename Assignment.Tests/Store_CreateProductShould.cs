@@ -4,7 +4,8 @@ using Assignment;
 namespace Assignment.Tests
 {
     /// <summary>
-    /// This class is responsible of unit tests for CreateProduct method of Store class.
+    /// <para>Tests CreateProduct method.</para>
+    /// <para>Instantiates a different Store object for each test. Thus, no constructor.</para>
     /// </summary>
     public class Store_CreateProductShould
     {
@@ -17,6 +18,16 @@ namespace Assignment.Tests
             string actualMessage = testStore.CreateProduct("P1", 100, 1000);
 
             Assert.Equal("Product created; code P1, price 100, stock 1000", actualMessage);            
+        }
+        [Fact]
+        public void CreateProduct_ExistingProductInput_ReturnFailMessage()
+        {
+            var testStore = new Store();
+            testStore.CreateProduct("P1", 100, 1000);
+
+            string createProductResponse = testStore.CreateProduct("P1", 100, 1000);
+
+            Assert.Equal("A product with the code P1 already exists.", createProductResponse);
         }
     }
 }
