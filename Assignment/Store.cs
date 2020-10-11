@@ -172,14 +172,17 @@ namespace Assignment
                     try
                     {
                         Campaign newCampaign = new Campaign(name, productCode, duration, priceManipulationLimit, targetSalesCount);
+                        Product campaignProduct = GetProduct(productCode);
+                        newCampaign.startTime = this.time;
+                        newCampaign.initialPrice = campaignProduct.price;
                         this.campaigns.Add(productCode, newCampaign);
                         return
                             $@"Campaign created; 
-                        name {newCampaign.name}, 
-                        product {newCampaign.productCode}, 
-                        duration {newCampaign.duration}, 
-                        limit {newCampaign.priceManipulationLimit}, 
-                        target sales count {newCampaign.targetSalesCount}"
+                            name {newCampaign.name}, 
+                            product {newCampaign.productCode}, 
+                            duration {newCampaign.duration}, 
+                            limit {newCampaign.priceManipulationLimit}, 
+                            target sales count {newCampaign.targetSalesCount}"
                             .Replace(Environment.NewLine, "")
                             .Replace("    ", "");
                     }
@@ -250,6 +253,62 @@ namespace Assignment
         {
             TimeSpan timeToAdd = new TimeSpan(time, 0, 0);
             this.time = this.time.Add(timeToAdd);
+            var activeCampaigns = this.campaigns.Values.Where(campaign => campaign.isActive);
+            foreach (var campaign in activeCampaigns)
+            {
+                if (campaign.isActive)
+                {
+                    double timePassed = (this.time - campaign.startTime).TotalHours;
+
+                    // If campaign needs to end, do it before further calculations:
+                    if (timePassed > campaign.duration || campaign.totalSales >= campaign.targetSalesCount)
+                    {
+                        campaign.isActive = false;
+                        var campaignProduct = GetProduct(campaign.productCode);
+                        // Set price back to its initial value:
+                        campaignProduct.price = campaign.initialPrice;
+                    }
+                    else
+                    {
+                        // We need some numbers first:
+                        // e.g., 100 / 10 = 10, 10 sales per hour is the expected average.
+                        double expectedSalesRate = campaign.targetSalesCount / campaign.duration;
+                        // e.g., 100 / 5 = 20, 20 sales per hour up to now.
+                        double currentSalesRate = campaign.totalSales / timePassed;
+                        // e.g., 20 / 10 = 2, demand is high.
+                        double demandCoefficient = currentSalesRate / expectedSalesRate;
+                        // e.g., 20 / 10 = 2, 2% of initialPrice is the limit for price increase/decrease.
+                        double maximumChangeByPercent = campaign.priceManipulationLimit / campaign.duration;
+                        // We can manipulate the price now:
+                        var campaignProduct = GetProduct(campaign.productCode);
+                        if (0 <= demandCoefficient && demandCoefficient < 0.5)
+                        {
+                            campaignProduct.price += -1.0m * campaign.initialPrice * (decimal)maximumChangeByPercent / 100;
+                        }
+                        else if (0.5 <= demandCoefficient && demandCoefficient < 1)
+                        {
+                            campaignProduct.price += -0.5m * campaign.initialPrice * (decimal)maximumChangeByPercent / 100;
+                        }
+                        else if (demandCoefficient == 1)
+                        {
+                            // Basically does nothing, but couldn't help my completionist tendencies.
+                            campaignProduct.price += 0 * campaign.initialPrice * (decimal)maximumChangeByPercent / 100;
+                        }
+                        else if (1 < demandCoefficient && demandCoefficient < 2)
+                        {
+                            campaignProduct.price += 0.5m * campaign.initialPrice * (decimal)maximumChangeByPercent / 100;
+                        }
+                        else if (2 <= demandCoefficient)
+                        {
+                            campaignProduct.price += 1.0m * campaign.initialPrice * (decimal)maximumChangeByPercent / 100;
+                        }
+                    }
+
+                }
+
+            }
+
+
             return $"Time is { this.time.ToString("HH:mm") }";
         }
         /// <summary>
