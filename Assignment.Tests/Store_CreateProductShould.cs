@@ -3,16 +3,12 @@ using Assignment;
 
 namespace Assignment.Tests
 {
+    /// <summary>
+    /// This class is responsible of unit tests for CreateProduct method of Store class.
+    /// </summary>
     public class Store_CreateProductShould
     {
 
-        public Store_CreateProductShould()
-        {
-
-        }
-        /// <summary>
-        /// 
-        /// </summary>
         [Fact]
         public void CreateProduct_NonExistentProductInput_ReturnSuccessMessage()
         {
