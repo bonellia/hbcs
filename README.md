@@ -66,11 +66,11 @@ I wanted demand coefficient to impact how agressive price should be manipulated.
 | Demand Coefficient | Change Coefficient | Limit: 20, Duration: 10 Change by % |
 |:------------------:|:------------------:|:-----------------------------------:|
 |       [0, 0.5)     |         -1         |                 -2%                 |
-|       (0.5, 1)     |        -0.5        |                 -1%                 |
+|       [0.5, 1)     |        -0.5        |                 -1%                 |
 |          1         |          0         |                  0                  |
 |       (1, 2)       |         0.5        |                 +1%                 |
 |       [2, ∞)       |          1         |                 +2%                 |
 
-You can visit the following Google Sheet to view how relevant parameters change as a table and graph for scenario 1 and scenario 5 using this approach.
+You can visit [the following Google Sheet](https://docs.google.com/spreadsheets/d/1pRwqkjXN6CzEHF8PI20mhAxdsrnBTRuip2qZcxtt2eY/edit?usp=sharing) to view how relevant parameters change as a table and graph for scenario 1 and scenario 5 using this approach.
 This ensures that the price will be increased or decreased considering the demand and ideally reaching the maximum or minimum price as late as possible to prevent complications or losses mentioned above. One advantage of using such a method is that we don't really need to keep track of previous price changes.  
 An important detail is that we **shouldn't** be increasing/decreasing the price compoundly (i.e., price + price*percentage), since price could potentially breach the upper/lower limit. To achieve that, I decided to save initial price on campaign and use it to apply percentage based price updates.
