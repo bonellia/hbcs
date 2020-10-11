@@ -10,7 +10,7 @@ namespace Assignment
         /// <para>This value is expected to be unique among campaigns.</para>
         /// <para>It is not enforced programmatically except the fact that it is used as a key on campaigns dictionary.</para>
         /// </summary>
-        /// <value>A valid, unique name for the campaign. (e.g., C1, C2.)</value>
+        /// <value>A valid name for the campaign. (e.g., C1, C2.)</value>
         public string name { get; }
         /// <summary>
         /// This refers to an existing product on Store's products dictionary as expected.
@@ -33,19 +33,19 @@ namespace Assignment
         /// <value>The amount of the products that is targeted to be sold.</value>
         public int targetSalesCount { get; }
         /// <summary>
-        /// 
+        /// Indicates whether a campaign is active or not.
         /// </summary>
-        /// <value></value>
+        /// <value>A boolean where true implies "Active" and false implies "Ended".</value>
         public bool isActive { get; set; }
         /// <summary>
-        /// 
+        /// Indicates the total number of sales for the product with the campaign.
         /// </summary>
-        /// <value></value>
+        /// <value>A valid integer that may change status of the campaign depending on targetSalesCount.</value>
         public int totalSales { get; set; }
         /// <summary>
-        /// 
+        /// Indicates the total revenue of the campaign. Used to determine average item price.
         /// </summary>
-        /// <value></value>
+        /// <value>A valid decimal.</value>
         public decimal turnover { get; set; }
         /// <summary>
         /// 
