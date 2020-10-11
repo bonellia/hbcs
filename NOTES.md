@@ -82,6 +82,8 @@ We usually relay on Google, official docs and StackOverflow a lot, especially wh
 - [unit test logic involving multiple classes - Stack Overflow](https://stackoverflow.com/questions/4722016/unit-test-logic-involving-multiple-classes/4722058)
 - [Unit tests vs class tests | Arkency Blog](https://blog.arkency.com/2014/09/unit-tests-vs-class-tests/)
 - [Should one unit test test a single method, or a single case of a method? - Quora](https://www.quora.com/Should-one-unit-test-test-a-single-method-or-a-single-case-of-a-method)
+- [When to Use and Not Use var in C# - IntelliTect](https://intellitect.com/when-to-use-and-not-use-var-in-c/)
+- [type safety - What is the difference between a strongly typed language and a statically typed language? - Stack Overflow](https://stackoverflow.com/questions/2690544/what-is-the-difference-between-a-strongly-typed-language-and-a-statically-typed)
 
 No, I didn't manually generate the bookmark list. :D Turns out Firefox stores bookmarks in the profile folder in a file named `places.sqlite`. Here is the SQL query that I used to generate valid markdown links as a list:
 ```

@@ -58,14 +58,19 @@ There could be various approaches to determine how the price changes. The first 
 The list of factors to dynamically determine a campaign product's price could go on forever depending on what kind of telemetry is being used on the platform. However, these are irrelevant within the scope of this assignment, so I decided to come up with a more simplistic solution using the following factors:
 - Expected sales rate: Denoted by `target_sales_count` / `duration`.
 - Current sales rate: Denoted by `current_sale_count` / `current_time`.
-- Remaining time: Denoted by `duration` / `current_time`.
 - Demand coefficient: Denoted by `current_sales_rate` / `expected_sales_rate`.
+- Maximum change (%): Denoted by `manipulation limit` / `duration`.
 #### **Extra Considerations** ####
-The price could be increased exponentially, but that would probably have some complications such as customers thinking the vendor is taking advantage of the demand. On the other hand, if the price was dropping agressively, this could prevent the possibility of having sales on a higher price on average. to find a healthy balance between these two, `remaining time` factor is considered. The price of a campaign product is manipulated considering the following on any `increase_time()` trigger:
-- Calculate demand coefficient.
-- If it is higher than 1, increase the price by `price manipulation limit` / `remaining_time` percent.
-- If it is equal to 1, do not change the price.
-- If it is less than 1, decrease the price by `price manipulation limit` / `remaining_time` percent.
+The price could be increased exponentially, but that would probably have some complications such as customers thinking the vendor is taking advantage of the demand. On the other hand, if the price was dropping agressively, this could prevent the possibility of having sales on a higher price on average.  
+I wanted demand coefficient to impact how agressive price should be manipulated. It works as follows:
+| Demand Coefficient | Change Coefficient | Limit: 20, Duration: 10 Change by % |
+|:------------------:|:------------------:|:-----------------------------------:|
+|       [0, 0.5)     |         -1         |                 -2%                 |
+|       (0.5, 1)     |        -0.5        |                 -1%                 |
+|          1         |          0         |                  0                  |
+|       (1, 2)       |         0.5        |                 +1%                 |
+|       [2, ∞)       |          1         |                 +2%                 |
 
-This ensures that the price will be increased or decreased considering the remaining time and ideally reaching the maximum or minimum price as late as possible to prevent complications or losses mentioned above. One advantage of using such a method is that you don't really need to keep track of previous price changes or even store the initial price unless you want to reset price after a campaign expires, but I am hoping that such a case will not be tested anyways.
-
+You can visit the following Google Sheet to view how relevant parameters change as a table and graph for scenario 1 and scenario 5 using this approach.
+This ensures that the price will be increased or decreased considering the demand and ideally reaching the maximum or minimum price as late as possible to prevent complications or losses mentioned above. One advantage of using such a method is that we don't really need to keep track of previous price changes.  
+An important detail is that we **shouldn't** be increasing/decreasing the price compoundly (i.e., price + price*percentage), since price could potentially breach the upper/lower limit. To achieve that, I decided to save initial price on campaign and use it to apply percentage based price updates.
