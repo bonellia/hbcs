@@ -3,17 +3,13 @@ using Assignment;
 
 namespace Assignment.Tests
 {
+    /// <summary>
+    /// <para>Tests CreateOrder method.</para>
+    /// <para>Instantiates a different Store object for each test. Thus, no constructor.</para>
+    /// </summary>
     public class Store_CreateOrderShould
     {
 
-        /// <summary>
-        /// <para>Tests all branches of the CreateOrder method.</para>
-        /// <para>Instantiates a different Store object for each test.</para>
-        /// </summary>
-        public Store_CreateOrderShould()
-        {
-
-        }
 
         [Fact]
         public void CreateOrder_ExistingProductHasStockNoCampaign_ReturnSuccessMessage()
@@ -61,15 +57,22 @@ namespace Assignment.Tests
         {
             var testStore = new Store();
 
-            testStore.CreateProduct("P1", 100, 5);
+            testStore.CreateProduct("P1", 100, 200);
             var newProduct = testStore.GetProduct("P1");
             var stockBeforeOrder = newProduct.stock;
             testStore.CreateCampaign("C1", "P1", 10, 20, 100);
+            var newCampaign = testStore.GetCampaign("P1");
+            var totalSalesBeforeOrder = newCampaign.totalSales;
+            var turnoverBeforeOrder = newCampaign.turnover;
             string createOrderResponse = testStore.CreateOrder("P1", 3);
             var stockAfterOrder = newProduct.stock;
+            var totalSalesAfterOrder = newCampaign.totalSales;
+            var turnoverAfterOrder = newCampaign.turnover;
 
             Assert.Equal("Order created; product P1, quantity 3", createOrderResponse);
             Assert.Equal(stockBeforeOrder-3, stockAfterOrder);
+            Assert.Equal(totalSalesBeforeOrder+3, totalSalesAfterOrder);
+            Assert.Equal(turnoverBeforeOrder+newProduct.price*3, turnoverAfterOrder);
 
         }
     }
