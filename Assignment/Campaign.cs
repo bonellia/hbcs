@@ -1,3 +1,5 @@
+using System;
+
 namespace Assignment
 {
     /// <summary>
@@ -48,6 +50,17 @@ namespace Assignment
         /// <value>A valid decimal.</value>
         public decimal turnover { get; set; }
         /// <summary>
+        /// Indicates when does the campaign begin. Set during creation.
+        /// </summary>
+        /// <value>A valid DateTime object.</value>
+        public DateTime startTime { get; set; }
+        /// <summary>
+        /// Saved in order to determine price changes and reset the product price when a campaign ends.
+        /// </summary>
+        /// <value>A valid decimal value.</value>
+        /// 
+        public decimal initialPrice { get; set; }
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="name">A valid name for the campaign. (e.g., C1, C2.)</param>
@@ -65,6 +78,8 @@ namespace Assignment
             this.isActive = true;
             this.totalSales = 0;
             this.turnover = 0;
+            // This should be updated during the creation of a new campaign.
+            this.initialPrice = 0;
         }        
     }
 }
