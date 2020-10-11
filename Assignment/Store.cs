@@ -158,6 +158,7 @@ namespace Assignment
         /// <item>Success: Campaign created; name C1, product P1, duration 10, limit 20, target sales count 100</item>
         /// <item>Failure: Cannot create a campaign with the product code P1, since a campaign for this product already exists.</item>
         /// <item>Failure: Cannot create a campaign for the product P1, since the product stock (10) is insufficient.</item>
+        /// <item>Failure: Cannot create a campaign for the product P1, since such a product does not exist.</item>
         /// </list>
         /// </returns>
         public string CreateCampaign(string name, string productCode, int duration, int priceManipulationLimit, int targetSalesCount)
@@ -189,7 +190,7 @@ namespace Assignment
                 }
                 else
                 {
-                    return $"Cannot create a campaign for the product {productCode}, since the product stock (productStock) is insufficient.";
+                    return $"Cannot create a campaign for the product {productCode}, since the product stock ({productStock}) is insufficient.";
                 }
 
             }
