@@ -9,7 +9,7 @@ namespace Assignment
         /// <para>This value is expected to be unique among products.</para>
         /// <para>It is not enforced programmatically except the fact that it is used as a key on campaigns dictionary.</para>
         /// </summary>
-        /// <value>A valid, unique code for the campaign. (e.g., P1, P2.)</value>
+        /// <value>A valid, unique product code for the product. (e.g., P1, P2.)</value>
         public string productCode { get; }
         /// <summary>
         /// This value is manipulated during the campaigns depending on the demand.
