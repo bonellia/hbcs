@@ -1,3 +1,4 @@
+Please view `NOTES.md` file for more casual information regarding the assignment.
 ## Purpose ##
 This program has been written as the solution of an assignment for an online retailer firm.  
 The main objective is to demonstrate various programming skills, so it is obviously not recommended for production use.
@@ -30,6 +31,9 @@ This project was firstly intended to be implemented using node.js, but consideri
 #### **Project Layout** ####
 There seems to be a lot of discussions and *some* conventions regarding how files and folders are placed within projects that are built using .NET. I have decided to have a more simplistic approach and do not spend too much time decided "how to perfect where everything should be".
 
+### **Using var** ####
+Given the chance, I prefer strictly typed variables. However, there are advantages to loosely typing as well. Briefly, I decided to be more pedantic on the actual source code while I was satisfied enough to use "var" in general on tests. From readability and intuitiveness perspective, I hope both the test and application code are clear enough.
+
 #### **Main Memory vs Secondary Storage** ####
 Use of a relational database would probably be favored in a real life scenario. However in-memory containers has been used to store runtime data for sake of simplicity, so the program data only lives throughout runtime. To prevent data-loss between contexts, try-catch blocks are utilized to keep program running without needing to set a store state from the beginning.
 
@@ -38,6 +42,9 @@ I have decided to keep usage of external libraries to a minimum. Plus, it is a f
 
 #### **Documentation** ####
 I always appreciate having Javadoc style documentation comments while using libraries, so I try to use them on any programming language I work with given that the language supports it (Typescript, Python). All the methods as well as classes have XML comments within the source code. I have tried to support them by adding regular comments to further elaborate on usage of certain statements. These should suffice to understand what is going on within the code, but I will still be adding a section to explain how to use the program.
+
+#### **Testing** ####
+On my first attempt, I realized I was using BDD over TDD. After realizing that it was favored for this assignment, I started over. Obviously I still used decent amount of implementation from the first iteration of the solution, but this time I created unit tests and refactored my code considering my tests. xUnit seemed to be more than enough for my needs. I used "Arrange, Act, Assert" pattern on my unit testing, because apparently it is a common pattern that separates test code neatly. I needed to use multiple assertions on some tests due to nature of the requested methods (e.g., it is necessary to check stock of a product when an order was successful), but I tried not to slip to integration testing while adding extra assertions.
 
 ## The Algorithm ##
 *This section contains information regarding the way price is manipulated. No, there is no machine learning whatsoever.*
@@ -60,5 +67,5 @@ The price could be increased exponentially, but that would probably have some co
 - If it is equal to 1, do not change the price.
 - If it is less than 1, decrease the price by `price manipulation limit` / `remaining_time` percent.
 
-This ensures that the price will be increased or decreased considering the remaining time and ideally reaching the maximum or minimum price as late as possible to prevent complications or losses mentioned above.
+This ensures that the price will be increased or decreased considering the remaining time and ideally reaching the maximum or minimum price as late as possible to prevent complications or losses mentioned above. One advantage of using such a method is that you don't really need to keep track of previous price changes or even store the initial price unless you want to reset price after a campaign expires, but I am hoping that such a case will not be tested anyways.
 
