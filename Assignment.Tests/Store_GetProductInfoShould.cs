@@ -5,12 +5,6 @@ namespace Assignment.Tests
 {
     public class Store_GetProductInfoShould
     {
-
-        public Store_GetProductInfoShould()
-        {
-
-        }
-
         [Fact]
         public void GetProductInfo_ExistingProduct_ReturnSuccessMessage()
         {
