@@ -25,7 +25,7 @@ namespace Assignment
                 string[] scenarioFiles = Directory.GetFiles("./scenarios");
                 foreach (var scenarioFile in scenarioFiles)
                 {
-                    Console.WriteLine($"[{scenarioFile}] : Running the commands...");
+                    Console.WriteLine($"Running the commands for the scenario file on directory \"{scenarioFile}\". ");
                     string[] commands = File.ReadAllLines(scenarioFile);
                     myProgram.CreateStoreAndProceedAutomatically(commands);
                 }
