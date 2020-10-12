@@ -128,7 +128,6 @@ namespace Assignment
                     }
                     else
                     {
-                        theProduct.stock -= quantity;
                         return $"Order created; product {productCode}, quantity {quantity}";
                     }
                 }
