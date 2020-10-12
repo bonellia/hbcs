@@ -20,7 +20,7 @@ namespace Assignment
         private Dictionary<string, Campaign> campaigns;
 
         // I could just use integers for simplicity, but I wanted to make use of built-in libraries.
-        private DateTime time;
+        public DateTime time;
 
         /// <summary>
         /// <para>Generates a new store object with products, orders and campaigns.</para>
@@ -113,11 +113,12 @@ namespace Assignment
                 bool stockSuffices = theProduct.stock >= quantity;
                 if (stockSuffices)
                 {
+                    // Decrease the stock regardless of any campaign.
+                    theProduct.stock -= quantity;
                     bool campaignForProductExists = campaigns.ContainsKey(productCode);
-                    if (campaignForProductExists)
+                    Campaign theCampaign = this.campaigns.GetValueOrDefault(productCode);
+                    if (campaignForProductExists && theCampaign.isActive)
                     {
-                        Campaign theCampaign = this.campaigns.GetValueOrDefault(productCode);
-                        theProduct.stock -= quantity;
                         theCampaign.totalSales += quantity;
                         theCampaign.turnover += theProduct.price * quantity;
                         return $"Order created; product {productCode}, quantity {quantity}";
@@ -220,7 +221,7 @@ namespace Assignment
             {
                 Campaign theCampaign = this.campaigns.Values.FirstOrDefault(campaign => campaign.name == name);
                 string campaignStatus = theCampaign.isActive ? "Active" : "Ended";
-                string averageItemPrice = theCampaign.totalSales == 0 ? "-" : $"{theCampaign.turnover / theCampaign.totalSales}";
+                string averageItemPrice = theCampaign.totalSales == 0 ? "-" : $"{decimal.Round(theCampaign.turnover / theCampaign.totalSales)}";
 
                 return
                         $@"Campaign {theCampaign.name} info; 
