@@ -52,6 +52,7 @@ We usually relay on Google, official docs and StackOverflow a lot, especially wh
 - [xml comments - XML Auto Commenting C# in Visual Studio Code - Stack Overflow](https://stackoverflow.com/questions/34275209/xml-auto-commenting-c-sharp-in-visual-studio-code)
 - [Dictionary<TKey,TValue>.KeyCollection(Dictionary<TKey,TValue>) Constructor (System.Collections.Generic) | Microsoft Docs](https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.dictionary-2.keycollection.-ctor?view=netcore-3.1)
 - [Compiler Error CS0120 | Microsoft Docs](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0120)
+- [Testing .NET Core Apps with Visual Studio Code | Pluralsight](https://www.pluralsight.com/guides/testing-.net-core-apps-with-visual-studio-code)
 - [c# - How do I represent a time only value in .NET? - Stack Overflow](https://stackoverflow.com/questions/2037283/how-do-i-represent-a-time-only-value-in-net)
 - [DateTime.Now Property (System) | Microsoft Docs](https://docs.microsoft.com/en-us/dotnet/api/system.datetime.now?view=netcore-3.1)
 - [DateTime.Add(TimeSpan) Method (System) | Microsoft Docs](https://docs.microsoft.com/en-us/dotnet/api/system.datetime.add?view=netcore-3.1)
@@ -84,6 +85,10 @@ We usually relay on Google, official docs and StackOverflow a lot, especially wh
 - [Should one unit test test a single method, or a single case of a method? - Quora](https://www.quora.com/Should-one-unit-test-test-a-single-method-or-a-single-case-of-a-method)
 - [When to Use and Not Use var in C# - IntelliTect](https://intellitect.com/when-to-use-and-not-use-var-in-c/)
 - [type safety - What is the difference between a strongly typed language and a statically typed language? - Stack Overflow](https://stackoverflow.com/questions/2690544/what-is-the-difference-between-a-strongly-typed-language-and-a-statically-typed)
+- [Building self-contained, single executable .NET Core 3 CLI tools | radu's blog](https://radu-matei.com/blog/self-contained-dotnet-cli/)
+- [How do I 'delete' and object in C# - General and Gameplay Programming - GameDev.net](https://gamedev.net/forums/topic/517038-how-do-i-delete-and-object-in-c/4361001/)
+- [Logging in C# .NET Modern-day Practices: The Complete Guide - Michael's Coding Spot](https://michaelscodingspot.com/logging-in-dotnet/)
+- [.net core - How to create a LoggerFactory with a ConsoleLoggerProvider? - Stack Overflow](https://stackoverflow.com/questions/53690820/how-to-create-a-loggerfactory-with-a-consoleloggerprovider)
 
 No, I didn't manually generate the bookmark list. :D Turns out Firefox stores bookmarks in the profile folder in a file named `places.sqlite`. Here is the SQL query that I used to generate valid markdown links as a list:
 ```
