@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Serilog;
 namespace Assignment
 {
 
@@ -8,40 +9,65 @@ namespace Assignment
         static private bool manualMode;
         static void Main(string[] args)
         {
-            
+            // Microsoft.Extensions.Logging was not very intuitive for me, so I settled with Serilog.
+            // However, I added it for demonstration purposes only, since it was recommended by Safak.
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .WriteTo.Console()
+                .WriteTo.File("logs\\store.log", rollingInterval: RollingInterval.Day)
+                .CreateLogger();
+            Log.Information("Program has been started successfully.");
             Program myProgram = new Program();            
             Console.WriteLine("For automated tests, please copy your scenario files to \"scenarios\\\" directory and press Enter.");
             Console.WriteLine("For manual execution, please type \"manual\" and press Enter.");
             string operationMode = Console.ReadLine();
+            
             manualMode = operationMode == "manual" ? true : false;
             if (manualMode)
             {
+                Log.Information("The operation mode has been set to manual.");
                 Console.WriteLine("You can see a list of commands with \"help\".");
                 string[] commands = new string[] {"help"};
                 myProgram.CreateStoreAndProceedManually(commands);
             }
             else
             {
-                string[] scenarioFiles = Directory.GetFiles("./scenarios");
-                foreach (var scenarioFile in scenarioFiles)
+                Log.Information("The operation mode has been set to automated.");
+                try
                 {
-                    Console.WriteLine($"Running the commands for the scenario file on directory \"{scenarioFile}\". ");
-                    string[] commands = File.ReadAllLines(scenarioFile);
-                    myProgram.CreateStoreAndProceedAutomatically(commands);
+                    string[] scenarioFiles = Directory.GetFiles("./scenarios");
+                    Log.Information("Scenario files has been read successfully.");
+                    foreach (var scenarioFile in scenarioFiles)
+                    {
+                        Log.Information($"Reading the commands from the scenario file on directory \"{scenarioFile}\".");
+                        string[] commands = File.ReadAllLines(scenarioFile);
+                        Log.Information($"Running the commands for the scenario file on directory \"{scenarioFile}\".");
+                        myProgram.CreateStoreAndProceedAutomatically(commands);
+                    }
                 }
+                catch (System.Exception)
+                {
+                    Log.Error("Failed to read scenario files.");
+                }
+                
             }
         }
         private void CreateStoreAndProceedManually(string[] commands)
         {
+            
+            Log.Information("Enabling interactive mode for manual command execution.");
             ProcessCommands(manualMode, commands);
         }
         private void CreateStoreAndProceedAutomatically(string[] commands)
         {
+            Log.Information($"Processing {commands.Length} commands in automated mode.");
             ProcessCommands(manualMode, commands);
         }
         private void ProcessCommands(bool manualMode, string[] commands)
         {
+            Log.Information("Instantiating a new Util object to be used for input parsing.");
             Util util = new Util();
+            Log.Information("Instantiating a new store to run commands.");
             Store myStore = new Store();
             int counter = 0;
             // We would like program to keep running, unless its execution is interrupted manually.
@@ -88,7 +114,8 @@ namespace Assignment
                     // User may want to start over without having to re-open the program.
                     case ("reset"):
                     {
-                        // I beleive in garbage collector.
+                        // I believe in garbage collector.
+                        Log.Information("Resetting the store.");
                         myStore = null;
                         myStore = new Store();
                         break;
