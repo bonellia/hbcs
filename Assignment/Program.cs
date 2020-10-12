@@ -13,7 +13,7 @@ namespace Assignment
             // However, I added it for demonstration purposes only, since it was recommended by Safak.
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
-                .WriteTo.Console()
+                //.WriteTo.Console() Disabling it, so it doesn't interfere with the normal program output.
                 .WriteTo.File("logs\\store.log", rollingInterval: RollingInterval.Day)
                 .CreateLogger();
             Log.Information("Program has been started successfully.");
@@ -44,6 +44,8 @@ namespace Assignment
                         Log.Information($"Running the commands for the scenario file on directory \"{scenarioFile}\".");
                         myProgram.CreateStoreAndProceedAutomatically(commands);
                     }
+                    // To keep the app open after automated run has been completed, so the user can view the output within the CLI.
+                    Console.ReadLine();
                 }
                 catch (System.Exception)
                 {
