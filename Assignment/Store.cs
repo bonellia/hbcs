@@ -18,8 +18,11 @@ namespace Assignment
         private Dictionary<string, Product> products;
         private List<Order> orders;
         private Dictionary<string, Campaign> campaigns;
-
-        // I could just use integers for simplicity, but I wanted to make use of built-in libraries.
+        /// <summary>
+        /// <para>I could just use integers for simplicity, but I wanted to make use of built-in libraries.</para>
+        /// <para>Generates a new store object with products, orders and campaigns.</para>
+        /// <para>Initially it has no products, orders or campaigns. These should be added using relevant methods.</para>
+        /// </summary>
         public DateTime time;
 
         /// <summary>
