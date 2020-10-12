@@ -21,7 +21,13 @@ namespace Assignment
                 // Usage of switch statement is quite controversial, but I like it anyways when used right.
                 switch (command)
                 {
-                    // It wouldn't really hurt to have some extra information within the program itself.
+                    // Some people like to push Enter key on a CLI application.
+                    // This case allows adding empty lines without triggering "Invalid command." warning.
+                    case (""):
+                    {
+                        break;
+                    }
+                    // A help command could be handy to have some extra information within the program itself.
                     case ("help"):
                     {
                         Console.WriteLine("create_product PRODUCTCODE PRICE STOCK - Creates product in your system with given product information.");
